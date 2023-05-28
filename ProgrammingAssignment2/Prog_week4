@@ -1,0 +1,75 @@
+
+best <- function(state, outcome) {
+## Read outcome data
+read from site!!!
+## Check that state and outcome are valid
+ outcome <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+ head(outcome)
+ hist(outcome[, 11])
+if (missing(state))
+        stop("Need  invalid state.")
+if (missing(outcome))
+        stop("Need invalid outcome .")
+  
+## Return hospital name in that state with lowest 30-day death
+ #()
+ v <- sort (outcome)
+ Head(v[1])
+## rate
+  hospital_name
+}
+
+rankhospital <- function(state, outcome, num = "best") {
+## Read outcome data
+outcome <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+## Check that state and outcome are valid
+  if (state not in outcome[,"State"] )
+  { return  "Error"
+  } 
+   if (outcome not in outcome[,"???"] )
+  { return  "Error"
+  } 
+## Return hospital name in that state with the given rank
+## 30-day death rate
+}
+
+
+best <- function(state, outcome) {
+  ## Read outcome data
+  hospital_data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+  states <- unique(hospital_data[,"State"])
+  hospital_name =""
+    ## Check that state and outcome are valid 
+  #if ((outcome ^="heart attack") | (outcome ^="heart failure") | (outcome ^="pneumonia") )
+  #  stop(" invalid outcome")
+  if ( is.element(state,states) ) {
+    if (outcome == "heart attack") {
+      bestvalue <- sort(hospital_data[,"Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack" ])
+      mortality_name ="Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack"
+      }
+    else if (outcome == "heart failure") {
+      bestvalue <- sort(hospital_data[,"Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure"])
+      mortality_name ="Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure"
+      }
+
+    else if (outcome == "heart pneumonia") {
+      bestvalue <- sort(hospital_data[,"Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia"])
+      mortality_name ="Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia"
+      }      
+    else
+      stop(" invalid outcome")
+    for ( i in 1:length(bestvalue) )
+    {
+       if (hospital_data[i,outcome] == bestvalue[1]) {
+         hospital_name = hospital_data[i,"Hospital.Name"]
+         break;
+       }
+    }
+    
+  } else
+    stop(" invalid state")
+  
+  ## Return hospital name in that state with lowest 30-day death
+  ## rate
+  hospital_name
+}
