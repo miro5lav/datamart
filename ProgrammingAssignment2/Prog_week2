@@ -1,0 +1,39 @@
+mdat <- matrix(c(1,2,3, 11,12,13, 5,6,7), nrow = 3, ncol = 3, byrow = TRUE, dimnames = list(c("row1", "row2","row3"),c("C.1", "C.2", "C.3"))) 
+z <- solve(mdat)
+makeCacheMatrix <- function(x = matrix()) {
+  matrix <- NULL
+  set <- function(y) {
+    x <<- y
+    matrix <<- y
+  }	
+  get <- function() matrix
+  setsolve <- function(solve) matrix <<- solve
+  getsolve <- function() as.matrix(matrix)
+  list(set = set, get = get,
+       setsolve = setsolve,
+       getsolve = getsolve)
+}
+# change it for loop
+cacheSolve <- function (x, ...) {
+     cached = TRUE
+     m <- gl(0, nrow(x),ncol(x) )
+     for (i in seq_len( nrow(x)) ) {
+       for ( j in seq_len(ncol( x)) ) {
+         m[i,j] <- x[i,j]$getsolve()  
+         if(!is.null(m[i,j])) {
+           message("getting cached data")
+          
+         }
+         else  {cached = FALSE}
+       }
+     }    
+     if ( cached == FALSE ) {
+       data <- x$get()
+       m <- solve(data, ...)
+       setsolve(m)
+     }
+     m    
+}
+
+mcm <- makeCacheMatrix(mdat)
+csm <-cacheSolve(mdat)
